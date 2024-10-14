@@ -1,0 +1,51 @@
+TLDR install https://extensions.gnome.org/extension/1625/soft-brightness/
+    - this requires gnome extensions, installed below
+
+
+# Requirements
+sudo apt install git
+sudo apt install meson
+sudo apt-get install chrome-gnome-shell
+
+# brightness extension
+git clone https://github.com/F-i-f/soft-brightness
+cd soft-brightness/
+meson build
+ninja -C build install
+sudo apt install gir1.2-gtop-2.0 gir1.2-nm-1.0 gir1.2-clutter-1.0 gnome-system-monitor
+
+# Although GNOME Shell integration extension is running, native host connector is not detected
+# https://askubuntu.com/questions/1107848/although-gnome-shell-integration-extension-is-running-native-host-connector-is
+
+# GNOME Shell system monitor extension
+# I don't this this repository is required, it was just the extension from the askubuntu above
+git clone https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet.git
+cd gnome-shell-system-monitor-applet/
+make install
+reboot
+
+
+# gnome-browser-connector
+cd github/
+git clone https://gitlab.gnome.org/nE0sIghT/gnome-browser-connector.git 
+cd gnome-browser-connector/
+mkdir ~/tmp
+meson --prefix=/usr ~/tmp
+sudo meson install -C ~/tmp
+
+---
+Visit https://extensions.gnome.org/
+"Installed extensions" -> "Soft Brightness"
+
+OPTIONS
+Use backlight control= True
+Monitors = All
+Full screen behavior = "Brightness enforced in full-screen, always tear-free"
+Min brightness = "0.10"
+Mouse curson brightness = True
+Debug = False
+
+----
+Performed upgrade from 22.04 to 24.02
+Was able to get the brightness working by installing the Gnome extention "Soft Brightness Plus" 
+ - https://extensions.gnome.org/extension/5943/soft-brightness-plus/
